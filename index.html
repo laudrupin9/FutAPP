@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registrar Partido - FutStats</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <h1>FutStats - Registro de Partido</h1>
+    
+    <div id="registrar-partido">
+        <!-- 0. Duración del Partido -->
+        <div class="section">
+            <h2>0. Duración del Partido</h2>
+            <div class="input-group">
+                <label for="duracion-partido">Duración en minutos:</label>
+                <select id="duracion-partido" onchange="actualizarMinutosEventos()">
+                    <option value="90">90 minutos (estándar)</option>
+                    <option value="45">45 minutos (medio tiempo)</option>
+                    <option value="80">80 minutos (fútbol reducido)</option>
+                    <option value="60">60 minutos (fútbol sala)</option>
+                    <option value="70">70 minutos</option>
+                    <option value="100">100 minutos</option>
+                    <option value="120">120 minutos (con prórroga)</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- 1. Nombre de los Equipos -->
+        <div class="section">
+            <h2>1. Nombres de los Equipos</h2>
+            <div class="equipos">
+                <div class="equipo">
+                    <label for="nombre-equipo-a">Equipo Local:</label>
+                    <input type="text" id="nombre-equipo-a" placeholder="Nombre del equipo A">
+                </div>
+                <div class="equipo">
+                    <label for="nombre-equipo-b">Equipo Visitante:</label>
+                    <input type="text" id="nombre-equipo-b" placeholder="Nombre del equipo B">
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2. Añadir Jugadores -->
+        <div class="section">
+            <h2>2. Añadir Jugadores</h2>
+            <div class="jugadores-container">
+                <!-- Jugadores Equipo A -->
+                <div class="jugadores-equipo">
+                    <h3 id="titulo-jugadores-a">Jugadores Equipo A</h3>
+                    <div class="input-group">
+                        <input type="text" id="nuevo-jugador-a" placeholder="Nombre del jugador">
+                        <button onclick="agregarJugador('a')">Añadir Jugador</button>
+                    </div>
+                    <div id="lista-jugadores-a"></div>
+                </div>
+                
+                <!-- Jugadores Equipo B -->
+                <div class="jugadores-equipo">
+                    <h3 id="titulo-jugadores-b">Jugadores Equipo B</h3>
+                    <div class="input-group">
+                        <input type="text" id="nuevo-jugador-b" placeholder="Nombre del jugador">
+                        <button onclick="agregarJugador('b')">Añadir Jugador</button>
+                    </div>
+                    <div id="lista-jugadores-b"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3. Resultado Final -->
+        <div class="section">
+            <h2>3. Resultado Final</h2>
+            <div class="resultado">
+                <span id="nombre-visual-a">Equipo A</span>
+                <select id="goles-local">
+                    <option value="">Goles</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <!-- ... opciones hasta 20 ... -->
+                </select>
+                <span>-</span>
+                <select id="goles-visitante">
+                    <option value="">Goles</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <!-- ... opciones hasta 20 ... -->
+                </select>
+                <span id="nombre-visual-b">Equipo B</span>
+            </div>
+        </div>
+        
+        <!-- 4. Estadísticas de Jugadores -->
+        <div class="section">
+            <h2>4. Estadísticas de Jugadores</h2>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="cambiarTab('equipo-a')">Equipo Local</button>
+                <button class="tab-btn" onclick="cambiarTab('equipo-b')">Equipo Visitante</button>
+            </div> <!-- Fix: Cierre faltante de div -->
+            <div id="tabla-estadisticas-container">
+                <table id="tabla-estadisticas" class="tabla-estadisticas">
+                    <thead>
+                        <tr>
+                            <th>Jugador</th>
+                            <th>Goles</th>
+                            <th>Asistencias</th>
+                            <th>Tarjetas Amarillas</th>
+                            <th>Tarjetas Rojas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-estadisticas"></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Acciones Finales -->
+        <div class="acciones-finales">
+            <button onclick="guardarPartido()" id="btn-guardar">💾 Guardar Partido</button>
+            <button onclick="exportarJSON()" id="btn-exportar">📤 Exportar JSON</button>
+        </div>
+        
+        <!-- Área para mostrar y descargar JSON -->
+        <textarea id="json-output" readonly></textarea>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
