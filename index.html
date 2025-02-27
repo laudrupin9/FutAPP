@@ -3,15 +3,14 @@
 <head>
     <title>Registrar Partido - FutStats</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <h1>FutStats - Registro de Partido</h1>
+    <h1>FutApp Stats - Registro de Partido</h1>
     
     <div id="registrar-partido">
-        <!-- 0. Duración del Partido -->
+        <!-- 0. Duración del Partido y Fecha -->
         <div class="section">
-            <h2>0. Duración del Partido</h2>
+            <h2>Información del partido</h2>
             <div class="input-group">
                 <label for="duracion-partido">Duración en minutos:</label>
                 <select id="duracion-partido" onchange="actualizarMinutosEventos()">
@@ -24,18 +23,22 @@
                     <option value="120">120 minutos (con prórroga)</option>
                 </select>
             </div>
+            <div class="input-group">
+                <label for="fecha-partido">Fecha del partido:</label>
+                <input type="date" id="fecha-partido" placeholder="DD-MM-AAAA">
+            </div>
         </div>
         
         <!-- 1. Nombre de los Equipos -->
         <div class="section">
-            <h2>1. Nombres de los Equipos</h2>
+            <h2>Nombres de los Equipos</h2>
             <div class="equipos">
                 <div class="equipo">
-                    <label for="nombre-equipo-a">Equipo Local:</label>
+                    <label for="nombre-equipo-a">Local:</label>
                     <input type="text" id="nombre-equipo-a" placeholder="Nombre del equipo A">
                 </div>
                 <div class="equipo">
-                    <label for="nombre-equipo-b">Equipo Visitante:</label>
+                    <label for="nombre-equipo-b">Visitante:</label>
                     <input type="text" id="nombre-equipo-b" placeholder="Nombre del equipo B">
                 </div>
             </div>
@@ -43,85 +46,219 @@
         
         <!-- 2. Añadir Jugadores -->
         <div class="section">
-            <h2>2. Añadir Jugadores</h2>
+            <h2>Añadir Jugadores</h2>
             <div class="jugadores-container">
                 <!-- Jugadores Equipo A -->
                 <div class="jugadores-equipo">
-                    <h3 id="titulo-jugadores-a">Jugadores Equipo A</h3>
+                    <h3 id="titulo-jugadores-a">Local</h3>
                     <div class="input-group">
                         <input type="text" id="nuevo-jugador-a" placeholder="Nombre del jugador">
                         <button onclick="agregarJugador('a')">Añadir Jugador</button>
                     </div>
-                    <div id="lista-jugadores-a"></div>
+                    <div id="lista-jugadores-a">
+                        <!-- Los jugadores se agregarán aquí dinámicamente -->
+                    </div>
                 </div>
                 
                 <!-- Jugadores Equipo B -->
                 <div class="jugadores-equipo">
-                    <h3 id="titulo-jugadores-b">Jugadores Equipo B</h3>
+                    <h3 id="titulo-jugadores-b">Visitante</h3>
                     <div class="input-group">
                         <input type="text" id="nuevo-jugador-b" placeholder="Nombre del jugador">
                         <button onclick="agregarJugador('b')">Añadir Jugador</button>
                     </div>
-                    <div id="lista-jugadores-b"></div>
+                    <div id="lista-jugadores-b">
+                        <!-- Los jugadores se agregarán aquí dinámicamente -->
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- 3. Resultado Final -->
         <div class="section">
-            <h2>3. Resultado Final</h2>
+            <h2>Resultado</h2>
             <div class="resultado">
                 <span id="nombre-visual-a">Equipo A</span>
                 <select id="goles-local">
                     <option value="">Goles</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
-                    <!-- ... opciones hasta 20 ... -->
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
                 </select>
                 <span>-</span>
                 <select id="goles-visitante">
                     <option value="">Goles</option>
                     <option value="0">0</option>
                     <option value="1">1</option>
-                    <!-- ... opciones hasta 20 ... -->
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>           
                 </select>
                 <span id="nombre-visual-b">Equipo B</span>
             </div>
         </div>
         
-        <!-- 4. Estadísticas de Jugadores -->
-        <div class="section">
-            <h2>4. Estadísticas de Jugadores</h2>
-            <div class="tabs">
-                <button class="tab-btn active" onclick="cambiarTab('equipo-a')">Equipo Local</button>
-                <button class="tab-btn" onclick="cambiarTab('equipo-b')">Equipo Visitante</button>
-            </div> <!-- Fix: Cierre faltante de div -->
-            <div id="tabla-estadisticas-container">
-                <table id="tabla-estadisticas" class="tabla-estadisticas">
-                    <thead>
-                        <tr>
-                            <th>Jugador</th>
-                            <th>Goles</th>
-                            <th>Asistencias</th>
-                            <th>Tarjetas Amarillas</th>
-                            <th>Tarjetas Rojas</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbody-estadisticas"></tbody>
-                </table>
-            </div>
+		<!-- 4. Estadísticas de Jugadores -->
+		<div class="section">
+			<h2>Estadísticas de jugadores</h2>
+			<div class="tabs">
+				<button class="tab-btn active" onclick="cambiarTab('equipo-a')">Equipo Local</button>
+				<button class="tab-btn" onclick="cambiarTab('equipo-b')">Equipo Visitante</button>
+		    </div>
+		    <div id="tabla-estadisticas-container">
+			    <table id="tabla-estadisticas" class="tabla-estadisticas">
+				    <thead>
+					    <tr>
+						    <th>Jugador</th>
+						    <th>Goles</th>
+						    <th>Asistencias</th>
+						    <th>Tarjetas Amarillas</th>
+						    <th>Tarjetas Rojas</th>
+					    </tr>
+				    </thead>
+				    <tbody id="tbody-estadisticas">
+                    <!-- Las estadísticas se cargarán dinámicamente -->
+				    </tbody>
+			    </table>
+		    </div>
         </div>
-        
-        <!-- Acciones Finales -->
+
+        <!-- Acciones Finales (ÚNICA instancia) -->
         <div class="acciones-finales">
             <button onclick="guardarPartido()" id="btn-guardar">💾 Guardar Partido</button>
             <button onclick="exportarJSON()" id="btn-exportar">📤 Exportar JSON</button>
+            <button onclick="mostrarClasificacion()" id="btn-clasificacion">🏆 Clasificación</button>
         </div>
         
-        <!-- Área para mostrar y descargar JSON -->
-        <textarea id="json-output" readonly></textarea>
+        <!-- Solo mostramos el textarea si es necesario. Si no lo necesitas, elimina esta línea -->
+        <textarea id="json-output" readonly style="display: none;"></textarea>
     </div>
-    
+
+    <!-- Añadir esta nueva sección después del textarea json-output -->
+    <div id="clasificacion-container" class="clasificacion-container">
+        <div class="clasificacion-header">
+            <h2>Clasificación y Estadísticas</h2>
+            <button onclick="ocultarClasificacion()" class="btn-cerrar">✖</button>
+        </div>
+        <div class="clasificacion-tabs">
+            <button class="tab-btn active" onclick="cambiarTabClasificacion('tabla-posiciones')">Tabla de Posiciones</button>
+            <button class="tab-btn" onclick="cambiarTabClasificacion('estadisticas-jugadores')">Estadísticas Jugadores</button>
+            <button class="tab-btn" onclick="cambiarTabClasificacion('ultimos-partidos')">Últimos Partidos</button>
+        </div>
+        <div id="tabla-posiciones" class="clasificacion-content active">
+            <div class="filtro-temporada">
+                <label for="select-temporada">Temporada:</label>
+                <select id="select-temporada" onchange="cargarDatosTemporada()">
+                    <!-- Las temporadas se cargarán dinámicamente -->
+                </select>
+            </div>
+            <table class="tabla-clasificacion">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Equipo</th>
+                        <th>PJ</th>
+                        <th>G</th>
+                        <th>E</th>
+                        <th>P</th>
+                        <th>GF</th>
+                        <th>GC</th>
+                        <th>DG</th>
+                        <th>Pts</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-clasificacion-body">
+                    <!-- Los datos se cargarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <div id="estadisticas-jugadores" class="clasificacion-content">
+            <div class="filtros-estadisticas">
+                <div class="filtro-grupo">
+                    <label for="filtro-categoria">Categoría:</label>
+                    <select id="filtro-categoria" onchange="filtrarEstadisticas()">
+                        <option value="goles">Goles</option>
+                        <option value="asistencias">Asistencias</option>
+                        <option value="amarillas">Tarjetas Amarillas</option>
+                        <option value="rojas">Tarjetas Rojas</option>
+                    </select>
+                </div>
+                <div class="filtro-grupo">
+                    <input type="text" id="buscar-jugador" placeholder="Buscar jugador..." onkeyup="filtrarEstadisticas()">
+                </div>
+            </div>
+            <table class="tabla-estadisticas-jugadores">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Jugador</th>
+                        <th>Equipo</th>
+                        <th id="estadistica-titulo">Goles</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-estadisticas-jugadores-body">
+                    <!-- Los datos se cargarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <div id="ultimos-partidos" class="clasificacion-content">
+            <div class="filtro-cantidad">
+                <label for="filtro-partidos">Mostrar:</label>
+                <select id="filtro-partidos" onchange="cargarUltimosPartidos()">
+                    <option value="5">Últimos 5 partidos</option>
+                    <option value="10">Últimos 10 partidos</option>
+                    <option value="15">Últimos 15 partidos</option>
+                    <option value="todos">Todos los partidos</option>
+                </select>
+            </div>
+            <div id="lista-partidos" class="lista-partidos">
+                <!-- Los partidos se cargarán dinámicamente -->
+            </div>
+        </div>
+    </div>
+	
+    <!-- Agregar Supabase justo aquí, antes de script.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
     <script src="script.js"></script>
+ 
+    <!-- Popup de confirmación -->
+    <div class="overlay" id="confirmation-popup">
+        <div class="popup">
+            <div class="popup-header">
+                <h3 class="popup-title">Confirmar Registro de Partido</h3>
+                <button class="popup-close" onclick="cerrarPopup()">&times;</button>
+            </div>
+            <div class="popup-content" id="popup-content">
+                <!-- El contenido del resumen se generará dinámicamente con JavaScript -->
+            </div>
+            <div class="popup-actions">
+                <button class="btn-rechazar" onclick="cerrarPopup()">Cancelar</button>
+                <button class="btn-validar" onclick="confirmarGuardarPartido()">✓ Confirmar y Guardar</button>
+            </div>
+        </div>
+    </div>   
 </body>
 </html>
