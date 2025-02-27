@@ -785,3 +785,77 @@ button:active {
     background-color: #FF0000;
     margin-right: 3px;
 }
+
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+#import-log {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #f8f9fc;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-family: monospace;
+    margin-top: 15px;
+}
+
+.log-entry {
+    margin-bottom: 5px;
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.log-success {
+    color: #4CAF50;
+}
+
+.log-error {
+    color: #F44336;
+}
+
+.log-warning {
+    color: #FF9800;
+}
+
+.log-info {
+    color: #2196F3;
+}
+
+#csv-preview {
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+#csv-preview table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#csv-preview th, #csv-preview td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#csv-preview th {
+    background-color: #1e1860;
+    color: white;
+}
+
+#csv-preview tr:nth-child(even) {
+    background-color: #f8f9fc;
+}
