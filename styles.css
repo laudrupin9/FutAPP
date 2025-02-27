@@ -1,201 +1,787 @@
 body { 
-    font-family: Arial, sans-serif; 
-    padding: 20px; 
-    max-width: 800px; 
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 2rem;
+    max-width: 1200px;
     margin: 0 auto;
     color: #1e1860;
+    background-color: #f5f7fb;
+    line-height: 1.5;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #1e1860;
+    font-weight: 700;
 }
 
 .section { 
-    border: 1px solid #ddd; 
-    padding: 20px; 
-    margin-bottom: 20px; 
-    border-radius: 5px; 
-    background: #f9f9f9; 
+    border: 1px solid rgba(30, 24, 96, 0.1);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .input-group { 
-    margin: 15px 0; 
+    margin: 1.25rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.evento { 
-    border: 1px solid #ddd; 
-    padding: 15px; 
-    margin: 10px 0; 
-    border-radius: 5px; 
-    background: #fff; 
-}
-
-button { 
-    background: #fe175f; 
-    color: white; 
-    border: none; 
-    padding: 8px 15px; 
-    border-radius: 4px; 
-    cursor: pointer; 
-}
-
-button:hover { 
-    background: #e0154f; 
-}
-
-h2 { 
-    margin-top: 0; 
-    color: #1e1860; 
-}
-
-.equipos { 
-    display: flex; 
-    gap: 20px; 
-}
-
-.equipo { 
-    flex: 1; 
-}
-
-.jugador-item { 
-    display: flex; 
-    align-items: center; 
-    padding: 5px; 
-    background: #fff; 
-    margin: 5px 0; 
-    border-radius: 3px; 
-}
-
-.jugador-item span { 
-    flex: 1; 
-}
-
-.resultado { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    font-size: 18px; 
-}
-
-.delete-btn { 
-    background: #fe175f; 
-    padding: 5px 10px; 
-    margin-left: 5px; 
+label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #1e1860;
 }
 
 select, input { 
-    padding: 8px; 
-    margin-right: 10px; 
-    border-radius: 4px; 
-    border: 1px solid #ccc; 
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 2px solid rgba(30, 24, 96, 0.1);
     color: #1e1860;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #fff;
+    width: 100%;
+    max-width: 400px;
+}
+
+select:focus, input:focus {
+    outline: none;
+    border-color: #fe175f;
+    box-shadow: 0 0 0 3px rgba(254, 23, 95, 0.1);
+}
+
+button { 
+    background: #fe175f;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+button:hover { 
+    background: #e0154f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(254, 23, 95, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.equipos { 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
 }
 
 .jugadores-container { 
-    display: flex; 
-    gap: 20px; 
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .jugadores-equipo { 
-    flex: 1; 
-    padding: 15px; 
-    border: 1px solid #ddd; 
-    border-radius: 5px; 
-    background: #f5f5f5; 
+    padding: 1.5rem;
+    border: 2px solid rgba(30, 24, 96, 0.1);
+    border-radius: 12px;
+    background: #fff;
 }
 
-.acciones-finales { 
-    display: flex; 
-    gap: 15px; 
-    justify-content: center; 
-    margin-top: 30px; 
+.jugador-item { 
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: #f8f9fc;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    border: 1px solid rgba(30, 24, 96, 0.05);
+    transition: all 0.2s ease;
 }
 
-#json-output { 
-    display: none; 
-    width: 100%; 
-    height: 200px; 
-    margin-top: 20px; 
-    font-family: monospace;
-    color: #1e1860;
+.jugador-item:hover {
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-#btn-guardar {
-    font-size: 16px; 
-    padding: 10px 20px;
+.resultado { 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 2rem 0;
 }
 
-#btn-exportar {
-    font-size: 16px; 
-    padding: 10px 20px; 
-    background: #fe175f;
+/* Estilos para el botón de eliminar jugador */
+.btn-eliminar-jugador {
+    background: transparent;
+    color: #e0154f;
+    padding: 0.5rem;
+    margin-left: auto;
+    border-radius: 50%;
+    font-size: 1rem;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
 }
 
-h1, h3 {
-    color: #1e1860;
+.btn-eliminar-jugador:hover {
+    background: rgba(254, 23, 95, 0.1);
+    box-shadow: none;
+    transform: none;
+}
+
+/* Estilos para controles de estadísticas */
+.stat-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.stat-value {
+    min-width: 24px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.stat-btn {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+.stat-btn-increment {
+    background-color: #4CAF50;
+}
+
+.stat-btn-increment:hover {
+    background-color: #3e8e41;
+}
+
+.stat-btn-decrement {
+    background-color: #f44336;
+}
+
+.stat-btn-decrement:hover {
+    background-color: #d32f2f;
+}
+
+.resultado select {
+    width: auto;
+    min-width: 80px;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .tabla-estadisticas {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1.5rem;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.tabla-estadisticas th, .tabla-estadisticas td {
+    padding: 1rem;
+    border: 1px solid rgba(30, 24, 96, 0.1);
+    text-align: center;
+}
+
+.tabla-estadisticas th {
+    background-color: #1e1860;
+    color: #fff;
+    font-weight: 600;
+}
+
+.tabla-estadisticas tbody tr:nth-child(even) {
+    background-color: #f8f9fc;
+}
+
+.tabla-estadisticas tbody tr:hover {
+    background-color: #f0f2f8;
+}
+
+.tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 1rem;
+    background: #f8f9fc;
+    color: #1e1860;
+    border: 2px solid rgba(30, 24, 96, 0.1);
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    background: #1e1860;
+    color: white;
+    border-color: #1e1860;
+}
+
+.acciones-finales { 
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+}
+
+#json-output { 
+    width: 100%;
+    height: 200px;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    font-family: 'Consolas', monospace;
+    color: #1e1860;
+    border: 2px solid rgba(30, 24, 96, 0.1);
+    border-radius: 8px;
+    background: #f8f9fc;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .section {
+        padding: 1.5rem;
+    }
+    
+    .resultado {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tabs {
+        flex-direction: column;
+    }
+    
+    .acciones-finales {
+        flex-direction: column;
+    }
+    
+    button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Estilos para el popup de confirmación */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup {
+    width: 90%;
+    max-width: 700px;
+    max-height: 80vh;
+    background-color: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow-y: auto;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(30, 24, 96, 0.1);
+}
+
+.popup-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e1860;
+    margin: 0;
+}
+
+.popup-close {
+    background: transparent;
+    border: none;
+    color: #999;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s ease;
+}
+
+.popup-close:hover {
+    color: #e0154f;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
+}
+
+.popup-content {
+    margin-bottom: 1.5rem;
+}
+
+.popup-info-group {
+    margin-bottom: 1.5rem;
+}
+
+.popup-info-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1e1860;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(30, 24, 96, 0.1);
+}
+
+.popup-info-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(30, 24, 96, 0.05);
+}
+
+.popup-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.popup-value {
+    font-weight: 500;
+    color: #1e1860;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid rgba(30, 24, 96, 0.1);
+}
+
+.btn-rechazar {
+    background-color: #f8f9fc;
+    color: #666;
+    border: 1px solid rgba(30, 24, 96, 0.1);
+}
+
+.btn-rechazar:hover {
+    background-color: #f0f2f8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.btn-validar {
+    background-color: #4CAF50;
+}
+
+.btn-validar:hover {
+    background-color: #3e8e41;
+}
+
+.equipo-info {
+    margin: 1rem 0;
+    padding: 1rem;
+    background-color: #f8f9fc;
+    border-radius: 8px;
+    border: 1px solid rgba(30, 24, 96, 0.05);
+}
+
+.equipo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(30, 24, 96, 0.1);
+}
+
+.equipo-nombre {
+    font-weight: 700;
+    color: #1e1860;
+}
+
+.equipo-goles {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #e0154f;
+}
+
+.jugadores-stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.jugadores-stats-table th, .jugadores-stats-table td {
+    padding: 0.5rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(30, 24, 96, 0.05);
+}
+
+.jugadores-stats-table th {
+    background-color: rgba(30, 24, 96, 0.05);
+    font-weight: 600;
+    color: #1e1860;
+}
+
+/* Estilos para tarjetas */
+.tarjeta-amarilla, .tarjeta-roja {
+    display: inline-block;
+    width: 12px;
+    height: 16px;
+    border-radius: 2px;
+    margin-right: 3px;
+}
+
+.tarjeta-amarilla {
+    background-color: #FFD700;
+}
+
+.tarjeta-roja {
+    background-color: #FF0000;
+}
+
+@media (max-width: 768px) {
+    .popup {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    
+    .popup-actions {
+        flex-direction: column;
+    }
+    
+    .jugadores-stats-table {
+        font-size: 0.8rem;
+    }
+}
+
+/* Estilos para el botón de clasificación */
+#btn-clasificacion {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+/* Contenedor principal de clasificación */
+.clasificacion-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.clasificacion-container.active {
+    display: block;
+}
+
+.clasificacion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 15px;
+}
+
+.clasificacion-header h2 {
+    margin: 0;
+    color: #333;
+}
+
+.btn-cerrar {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.btn-cerrar:hover {
+    color: #f44336;
+}
+
+/* Tabs de clasificación */
+.clasificacion-tabs {
+    display: flex;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.clasificacion-tabs .tab-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-weight: 500;
+    color: #666;
+}
+
+.clasificacion-tabs .tab-btn.active {
+    border-bottom: 2px solid #2196F3;
+    color: #2196F3;
+}
+
+/* Contenido de las tabs */
+.clasificacion-content {
+    display: none;
+    padding: 10px 0;
+}
+
+.clasificacion-content.active {
+    display: block;
+}
+
+/* Tabla de clasificación */
+.tabla-clasificacion {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
 }
 
-.tabla-estadisticas th, .tabla-estadisticas td {
-    padding: 10px;
+.tabla-clasificacion th, 
+.tabla-clasificacion td {
     border: 1px solid #ddd;
+    padding: 8px 12px;
     text-align: center;
 }
 
-.tabla-estadisticas th {
-    background-color: #f2f2f2;
-    color: #1e1860;
+.tabla-clasificacion th {
+    background-color: #f5f5f5;
+    font-weight: bold;
 }
 
-.tabla-estadisticas tbody tr:nth-child(even) {
+.tabla-clasificacion tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.tabs {
+.tabla-clasificacion tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Filtros */
+.filtro-temporada,
+.filtros-estadisticas,
+.filtro-cantidad {
+    margin-bottom: 15px;
     display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filtro-grupo {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.filtro-grupo label {
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+.filtro-grupo select,
+.filtro-grupo input {
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+/* Tabla de estadísticas de jugadores */
+.tabla-estadisticas-jugadores {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-estadisticas-jugadores th, 
+.tabla-estadisticas-jugadores td {
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    text-align: left;
+}
+
+.tabla-estadisticas-jugadores th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+}
+
+.tabla-estadisticas-jugadores td:nth-child(4) {
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Lista de partidos */
+.lista-partidos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.partido-card {
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.partido-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.partido-resultado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 15px;
 }
 
-.tab-btn {
-    flex: 1;
-    padding: 10px;
-    background: #f2f2f2;
-    color: #1e1860;
-    border: 1px solid #ddd;
-    border-bottom: none;
-    cursor: pointer;
-}
-
-.tab-btn.active {
-    background: #fe175f;
-    color: white;
-}
-
-.stat-control {
+.equipo-resultado {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    width: 80px;
-    margin: 0 auto;
+    width: 40%;
 }
 
-.stat-btn {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    padding: 0;
+.equipo-nombre {
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.partido-separador {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+}
+
+.partido-goles {
+    font-size: 24px;
     font-weight: bold;
     display: flex;
+    gap: 15px;
+}
+
+.partido-fecha {
+    font-size: 12px;
+    color: #666;
+}
+
+.partido-detalles {
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+
+.partido-detalles h4 {
+    margin: 5px 0;
+    color: #444;
+    font-size: 14px;
+}
+
+.detalle-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 5px 0;
+}
+
+.detalle-item {
+    background-color: #f5f5f5;
+    border-radius: 15px;
+    padding: 3px 10px;
+    font-size: 12px;
+    display: flex;
     align-items: center;
-    justify-content: center;
+    gap: 5px;
 }
 
-.decrement {
-    background-color: #f8d7e0;
-    color: #fe175f;
+.detalle-icono {
+    font-size: 14px;
 }
 
-.increment {
-    background-color: #fe175f;
+/* Tarjetas en la lista de partidos */
+.tarjeta-amarilla-mini {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #FFD700;
+    margin-right: 3px;
+}
+
+.tarjeta-roja-mini {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #FF0000;
+    margin-right: 3px;
 }
