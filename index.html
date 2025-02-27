@@ -259,6 +259,44 @@
                 <button class="btn-validar" onclick="confirmarGuardarPartido()">✓ Confirmar y Guardar</button>
             </div>
         </div>
-    </div>   
+    </div> 
+
+	<div class="section" id="importador-csv">
+		<h2>Importador CSV</h2>
+			<div class="input-group">
+				<label for="csv-file">Selecciona el archivo CSV:</label>
+				<input type="file" id="csv-file" accept=".csv">
+			</div>
+			<div class="input-group">
+				<label for="temporada-id">Selecciona la temporada:</label>
+				<select id="temporada-id"></select>
+			</div>
+			<div class="input-group">
+				<label for="duracion-partidos">Duración de los partidos:</label>
+				<select id="duracion-partidos">
+					<option value="90">90 minutos (estándar)</option>
+					<option value="45">45 minutos</option>
+					<option value="80">80 minutos</option>
+					<option value="60">60 minutos</option>
+					<option value="70">70 minutos</option>
+				</select>
+    </div>
+    <button id="btn-preview-csv" class="btn-secundario">Vista previa</button>
+    <button id="btn-import-csv" class="btn-primario">Importar datos</button>
+    
+    <div id="csv-preview-container" style="display: none;">
+        <h3>Vista previa de los datos</h3>
+        <div id="csv-preview"></div>
+    </div>
+    
+    <div id="import-progress-container" style="display: none;">
+        <h3>Progreso de importación</h3>
+        <div class="progress-bar-container">
+            <div id="import-progress-bar" class="progress-bar"></div>
+        </div>
+        <div id="import-status">Preparando...</div>
+        <div id="import-log"></div>
+    </div>
+</div>	
 </body>
 </html>
